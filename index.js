@@ -127,7 +127,8 @@ module.exports = function (sails) {
         //
         // We save a reference to this Mongoose db connection, and listen for the first error emitted from it.
         // (any subsequent error events emitted that are emitted will crash the server!)
-        var dbConnection = sails.mongoose.connect(sails.config.mongoose.uri, sails.config.mongoose.connectionOpts).connection;
+        sails.mongoose.connect(sails.config.mongoose.uri, sails.config.mongoose.connectionOpts);
+        var dbConnection = sails.mongoose.connection;
         dbConnection.once('error', function (err){
 
           // Handle weird (and very unlikely) case where Mongoose emits an error event without sending an Error instance as the event data.
